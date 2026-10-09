@@ -26,8 +26,7 @@ while True:
         case 3:
             display_crew(crew)
         case 4:
-            print("BLABLA")
-            print("")
+            check_crew(crew)
         case 0:
             break
         case _:

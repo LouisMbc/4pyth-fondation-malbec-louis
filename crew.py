@@ -83,6 +83,31 @@ def display_crew(crew):
     if counter == 0:
         print("Aucun membre dans l'équipage")    
         
+def check_crew(crew):
+    counter = 0
+    role1 = "pilote"
+    role2 =  "technicien"
+    flag1 = flag2 = False
+    for i in crew:
+        counter = counter + 1
+        print(i["role"])
+        if i["role"] == role1:
+            flag1 = True
+        print(i["role"])
+        if i["role"] == role2:
+            flag2 = True
+    if counter >= 2 and flag1 and flag2:
+        print("L'équipage est prêt pour la mission !")
+    elif counter >= 2 and flag1 and not flag2:
+        print("Il manque un technicien")
+    elif counter >= 2 and flag2 and not flag1:
+        print("Il manque un pilote")
+    elif counter >= 2 and not flag2 and not flag1:
+            print("Il manque un pilote et un technicien")
+    elif counter < 2:
+        print("Il n'y faut au moins un pilote et un technicien pour partir en mission")
+    return True
+        
     
         
 
