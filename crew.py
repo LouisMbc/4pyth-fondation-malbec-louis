@@ -11,7 +11,7 @@ def add_member(crew):
         print("Donnez lui un nom :")
         new_crew["last_name"] = str(input())
         for i in crew:
-            if i["last_name"] == new_crew["last_name"]:
+            if i["last_name"].lower() == new_crew["last_name"].lower():
                 print("Nom déjà dans la liste")
                 name_in_list = True
                 break
@@ -47,3 +47,28 @@ def add_member(crew):
         print(new_crew)
         break
     return crew
+
+def remove_member(crew):
+    while True:
+        print("Entrez un nom :")
+        last_name = str(input().lower())
+        flag = True
+        counter = 0
+        for i in crew:
+            if i["last_name"].lower() == last_name:
+                flag = False
+                counter = counter + 1
+                break
+        counter = counter -1
+        crew.pop(counter)
+        print("Membre supprimé")
+        if flag:
+            print("Pas de membre ayant ce nom")
+            continue
+        else :
+            return crew
+    
+        
+
+
+
