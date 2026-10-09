@@ -55,18 +55,21 @@ def remove_member(crew):
         flag = True
         counter = 0
         for i in crew:
+            counter = counter + 1
+            print(counter)
             if i["last_name"].lower() == last_name:
                 flag = False
-                counter = counter + 1
+                counter = counter - 1
+                crew.pop(counter)
+                print("Membre supprimé")
+                print(crew)
                 break
-        counter = counter -1
-        crew.pop(counter)
-        print("Membre supprimé")
         if flag:
             print("Pas de membre ayant ce nom")
             continue
         else :
             return crew
+    
     
         
 
