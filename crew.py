@@ -1,3 +1,4 @@
+
 ROLES = ["commandant", "pilote", "technicien", "armurier", "marchand", "entretien"]
 
 
@@ -70,6 +71,18 @@ def remove_member(crew):
         else :
             return crew
     
+def display_crew(crew):
+    counter = 0
+    for i in crew:
+        counter = counter + 1
+        person = i["first_name"] + i["last_name"]
+        gender = i["gender"]
+        age = i["age"]
+        role = i["role"]
+        print(f"{counter}. {person} ({gender}, {age}) - {role}")
+    if counter == 0:
+        print("Aucun membre dans l'équipage")    
+        
     
         
 
