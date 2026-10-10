@@ -1,4 +1,4 @@
-from crew import *
+from person import *
 
 crew = [
 {"first_name": "Bel", "last_name": "Riose", "gender": "M", "age": 48, "role": "commandant"},
@@ -8,31 +8,17 @@ crew = [
 {"first_name": "Novi", "last_name": "Sura", "gender": "F", "age": 25, "role": "entretien"},
 ]
 
-if __name__ == "__main__":
-    while True:
-        print("""
-                        ===== Flotte marchande – Gestion de l'équipage =====
-                                    [1] Ajouter un membre
-                                    [2] Retirer un membre
-                                    [3] Afficher l'équipage
-                                    [4] Vérifier l'équipage
-                                    [0] Quitter
-        """)
-        try:
-            choice = int(input("Votre choix : "))
-            match choice:
-                case 1:
-                    add_member(crew)
-                case 2:
-                    remove_member(crew)
-                case 3:
-                    display_crew(crew)
-                case 4:
-                    check_crew(crew)
-                case 0:
-                    break
-                case _:
-                    print("Commande inconnue")
-        except ValueError:
-            print("Commande inconnue")
-                    
+user = Person("Bel", "Riose", "M", 48)
+user1 = Person("Fallom", "", "M", 48)
+user2 = Operator("Hugo", "Crast", "M", 37, "pilote")
+user3 = Mentalist("Joie", "", "F", 25)
+print(user.introduce_yourself())
+print(user.__str__())
+print(user1.introduce_yourself())
+print(user.__str__())
+print(user2.__str__())
+
+print(user3.act())
+print(user3.influence(user2))
+print(user.remove_member)
+
