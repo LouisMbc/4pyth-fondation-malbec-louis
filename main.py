@@ -20,5 +20,7 @@ print(user2.__str__())
 
 print(user3.act())
 print(user3.influence(user2))
+print(user3.__str__())
 print(user.remove_member)
 
+    

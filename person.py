@@ -28,6 +28,10 @@ class Person:
     def __str__(self):
         return f"{self.first_name}{self.last_name} ({self.gender}, {self.age} ans)"
     
+    @property
+    def name(self):
+        return f"{self.first_name} {self.last_name}".strip()
+    
     def remove_member(self, first_name, last_name):
         while True:
             print("Entrez un nom ou un prénom  :")
@@ -89,7 +93,7 @@ class Mentalist(Person):
     
     def __init__(self, first_name, last_name, gender, age):
         super().__init__(first_name, last_name, gender, age)
-        self.mana = 10
+        self.mana = 5
         
     @property
     def mana(self):
@@ -107,13 +111,18 @@ class Mentalist(Person):
         self.mana += 50
         
     def influence(self, operator):
-        self.mana -= 20
-        if self.mana == 0:
-            print(f"{self.first_name} n'a pas assez de mana pour influencer {self.operator(self.first_name)} {self.operator(self.last_name)}")
-            return False
+        if self.mana >= 20:
+            self.mana -= 20
+            operator.act()
         else:
-            self.operator(self.act())
+            print(f"{self.first_name} n'a pas assez de mana pour influencer {operator.name}")
+            return False
 
+    def __str__(self):
+        introduce = super().__str__()
+        return f"{introduce} - mentaliste, {self.mana} mana"
+    
+    
         
                 
 
