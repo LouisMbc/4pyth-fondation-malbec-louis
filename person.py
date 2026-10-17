@@ -31,33 +31,6 @@ class Person:
     @property
     def name(self):
         return f"{self.first_name} {self.last_name}".strip()
-    
-    def remove_member(self, first_name, last_name):
-        while True:
-            print("Entrez un nom ou un prénom  :")
-            last_name = str(input().lower())
-            flag = True
-            counter = 0
-            for i in self.crew:
-                counter = counter + 1
-                print(counter)
-                if i["last_name"].lower() == last_name:
-                    flag = False
-                    counter = counter - 1
-                    self.crew.pop(counter)
-                    print("Membre supprimé")
-                    print(self.crew)
-                    break
-                if i["first_name"].lower() == first_name:
-                    flag = False
-                    counter = counter - 1
-                    self.crew.pop(counter)
-                    print("Membre supprimé")
-                    print(self.crew)
-                    break       
-            if flag:
-                print("Pas de membre ayant ce nom")
-                continue
             
 class Operator(Person):
     """Un membre d'équipage avec un rôle"""
