@@ -26,11 +26,12 @@ class Person:
         return f"Je m'appelle {self.first_name}{space}{self.last_name}, je suis {gender} de {self.age} ans  "
  
     def __str__(self):
-        return f"{self.first_name}{self.last_name} ({self.gender}, {self.age} ans)"
+        space = " " if len(self.last_name) > 0 else ""
+        return f"{self.first_name}{space}{self.last_name} ({self.gender}, {self.age} ans)"
     
     @property
     def name(self):
-        return f"{self.first_name} {self.last_name}".strip()
+        return f"{self.first_name}{self.last_name}".strip()
             
 class Operator(Person):
     """Un membre d'équipage avec un rôle"""
@@ -66,7 +67,7 @@ class Mentalist(Person):
     
     def __init__(self, first_name, last_name, gender, age):
         super().__init__(first_name, last_name, gender, age)
-        self.mana = 5
+        self.mana = 100
         
     @property
     def mana(self):

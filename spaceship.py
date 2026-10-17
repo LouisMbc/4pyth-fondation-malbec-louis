@@ -1,16 +1,13 @@
 from person import Operator, Mentalist
 
-class Spaceship:
+class Spaceship:    
     """Un vaisseau et son équipage"""
     
-    def __init__(self, name, ship_type, condition):
+    def __init__(self, name, ship_type, condition="opérationnel"):
         self.MAX_CREW = 10
         self.name = name
         self.ship_type = ship_type
-        if condition == "":
-            self.condition = "opérationnel"
-        else:
-            self.condition = condition
+        self.condition = condition
         self.crew = []
         
     
@@ -48,6 +45,7 @@ class Spaceship:
                 roles.append(member.role)
         if "pilote" in roles and "technicien" in roles:
             return True
+        return False
 
     def watch_round(self):
         for member in self.crew:
