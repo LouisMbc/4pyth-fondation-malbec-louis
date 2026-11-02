@@ -1,5 +1,7 @@
 from person import *
 from spaceship import *
+from fleet_data import FLEET_DATA
+from crew import build_fleet
 
 # crew = [
 # {"first_name": "Bel", "last_name": "Riose", "gender": "M", "age": 48, "role": "commandant"},
