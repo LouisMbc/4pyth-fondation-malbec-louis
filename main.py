@@ -42,3 +42,10 @@ print(ship.remove_member("Bel"))
 print(ship.check_preparation())
 print(ship.watch_round())
 print(ship.__str__())
+
+fleet = build_fleet(FLEET_DATA)
+fleet.spaceships[0].crew[0].act()
+data = fleet.to_dict()
+again = build_fleet(data)
+print(again.to_dict() == data)
+ 

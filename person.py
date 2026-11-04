@@ -28,7 +28,15 @@ class Person:
     def __str__(self):
         space = " " if len(self.last_name) > 0 else ""
         return f"{self.first_name}{space}{self.last_name} ({self.gender}, {self.age} ans)"
-    
+
+    def to_dict(self):
+        return {
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "gender": self.gender,
+            "age": self.age,
+        }
+
     @property
     def name(self):
         return f"{self.first_name}{self.last_name}".strip()
@@ -61,6 +69,13 @@ class Operator(Person):
     def __str__(self):
         introduce = super().__str__()
         return f"{introduce} - {self.role}"
+
+    def to_dict(self):
+        person_data = super().to_dict()
+        person_data["type"] = "operator"
+        person_data["role"] = self.role
+        person_data["experience"] = self.experience
+        return person_data
 
 class Mentalist(Person):
     """Un membre de la Seconde Fondation"""
@@ -95,8 +110,13 @@ class Mentalist(Person):
     def __str__(self):
         introduce = super().__str__()
         return f"{introduce} - mentaliste, {self.mana} mana"
+
+    def to_dict(self):
+        person_data = super().to_dict()
+        person_data["type"] = "mentalist"
+        person_data["mana"] = self.mana
+        return person_data
     
     
         
                 
-

@@ -56,6 +56,18 @@ class Spaceship:
         for member in self.crew:
             counter += 1
         return (f"Fearless {self.ship_type} {self.condition} - {counter} membres")
+
+    def to_dict(self):
+        crew_data = []
+        for member in self.crew:
+            crew_data.append(member.to_dict())
+
+        return {
+            "name": self.name,
+            "ship_type": self.ship_type,
+            "condition": self.condition,
+            "crew": crew_data,
+        }
             
                 
            

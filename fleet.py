@@ -66,3 +66,13 @@ class Fleet:
                 {nb_ready_ships} Vaisseaux prêts
                 
     """
+
+    def to_dict(self):
+        spaceships_data = []
+        for spaceship in self.spaceships:
+            spaceships_data.append(spaceship.to_dict())
+
+        return {
+            "name": self.name,
+            "spaceships": spaceships_data,
+        }
