@@ -38,5 +38,5 @@ par son setter à 100.
 ## Déclaration d'usage de l'IA
 
 J'ai utilisé l'ia pour coderà ma place certaine partie de fonction que je n'arrivais pas à coder moi-même.
-Aussi pour corriger certaines erreur qu'il a fallut régler dans certaine des classes lorsque j'ai implémenté le menu.
+Aussi pour corriger certaines erreurs qu'il a fallut régler dans certaine des classes lorsque j'ai implémenté le menu.
 Enfin je l'ai aussi utilisé pour générer ce présent fichier.
