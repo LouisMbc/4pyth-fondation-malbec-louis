@@ -1,7 +1,8 @@
 import json
 from crew import build_fleet
 
-def save_fleet(self, fleet, path):
+
+def save_fleet(fleet, path):
     """Enregistre une flotte"""
 
     data = fleet.to_dict()
@@ -9,7 +10,7 @@ def save_fleet(self, fleet, path):
         json.dump(data, file, indent=2, ensure_ascii=False)
 
 
-def load_fleet(self, path):
+def load_fleet(path):
     """Charge la flotte"""
 
     try:

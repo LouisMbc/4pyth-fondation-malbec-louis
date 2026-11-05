@@ -28,9 +28,11 @@ class Fleet:
         counter = 0
         experiences = 0
         nb_ready_ships = 0
-        pilote = technicien = armurier = commandant = marchand = entretien = 0
+        pilote = technicien = armurier = commandant = marchand = entretien = endommage = 0
         for spaceship in self.spaceships:
             spaceship_temp = spaceship
+            if spaceship_temp.condition == "endommagé":
+                endommage += 1   
             if spaceship_temp.check_preparation():
                 nb_ready_ships += 1
             for member in spaceship_temp.crew:
@@ -63,6 +65,7 @@ armurier : {armurier}
 commandant : {commandant}
 mentaliste : {counter}
 Expérience moyenne des opérateurs : {average_experience}
+Nombre vaisseaux endommagés : {endommage}
 Vaisseaux prêts : {nb_ready_ships} / {len(self.spaceships)}"""
 
     def to_dict(self):

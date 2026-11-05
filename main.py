@@ -69,7 +69,24 @@ def add_spaceship(fleet):
     condition = input("État (opérationnel/endommagé) : ").strip()
     fleet.add_spaceship(Spaceship(name, ship_type, condition))
     print("Vaisseau ajouté.")
+    
 
+def ask_save(fleet):
+    path = input("Nom du fichier de sauvegarde: ").lower().strip()
+    save_fleet(fleet, path)
+    print(f"Flotte Galactica sauvegardée dans {path}.")
+    
+
+def ask_load(fleet):
+    path = input("Fichier à charger [fleet.json] : ").strip() or "fleet.json"
+    try:
+        loaded_fleet = load_fleet(path)
+    except ValueError as error:
+        print(f"Chargement impossible : {error}")
+        return fleet
+    print(f"Flotte {loaded_fleet.name} chargée depuis « {path} ».")
+    return loaded_fleet
+    
 
 def main():
     fleet = build_fleet(FLEET_DATA)
@@ -100,6 +117,10 @@ def main():
                 add_spaceship(fleet)
             elif choice == 6:
                 print(fleet.statistics())
+            elif choice == 7:
+                ask_save(fleet)
+            elif choice == 8:
+                fleet = ask_load(fleet)
             elif choice == 0:
                 break
             else:
@@ -110,6 +131,4 @@ def main():
 
 
 if __name__ == "__main__":
-    fleet = main()
-    save_fleet(fleet, "fleet.json")
-    fleet = load_fleet("fleet.json")
+    main()
