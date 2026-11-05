@@ -2,6 +2,7 @@ from crew import build_fleet
 from fleet_data import FLEET_DATA
 from person import Mentalist, Operator, ROLES
 from spaceship import Spaceship
+from storage import load_fleet, save_fleet
 
 
 def ask_ship(fleet):
@@ -81,6 +82,8 @@ def main():
             "[4] Vérifier un vaisseau\n"
             "[5] Ajouter un vaisseau\n"
             "[6] Statistiques de la flotte\n"
+            "[7] Sauvegarder la flotte\n"
+            "[8] Charger une flotte\n"
             "[0] Quitter"
         )
         try:
@@ -103,7 +106,10 @@ def main():
                 print("Commande inconnue.")
         except ValueError as error:
             print(f"Erreur : {error}")
+    return fleet
 
 
 if __name__ == "__main__":
-    main()
+    fleet = main()
+    save_fleet(fleet, "fleet.json")
+    fleet = load_fleet("fleet.json")
