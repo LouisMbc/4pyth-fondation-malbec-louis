@@ -12,14 +12,15 @@ class Fleet:
     def add_spaceship(self, spaceship):
         if len(self.spaceships) >= self.MAX_SPACESHIPS:
             raise ValueError(f"La flotte est déjà pleine")
-        elif self.name in self.spaceships:
+        elif any(existing.name.lower() == spaceship.name.lower()
+                 for existing in self.spaceships):
             raise ValueError(f"Ce vaisseau est déjà dans la flotte")
         else:
             self.spaceships.append(spaceship)
             
     def find_spaceship(self, name):
         for spaceship in self.spaceships:
-            if spaceship.name.lower() == name.lower():
+            if spaceship.name.lower() == name.strip().lower():
                 return spaceship
             
     def statistics(self):
@@ -52,20 +53,17 @@ class Fleet:
                     marchand += 1
                 case "entretien":
                     entretien += 1     
-        return f"""         Statistiques
-                {len(self.spaceships)} Vaisseaux
-                {sum(len(s.crew) for s in self.spaceships)} Membres
-                {pilote} pilotes
-                {technicien} techniciens
-                {armurier} armuriers
-                {commandant} commandants
-                {marchand} marchands
-                {entretien} entretiens
-                {counter} Mentalistes
-                {experiences/len(roles)} d'experience en moyenne pour les opérateurs
-                {nb_ready_ships} Vaisseaux prêts
-                
-    """
+        average_experience = experiences / len(roles) if roles else 0.0
+        return f"""Flotte {self.name} : {len(self.spaceships)} vaisseaux, {sum(len(s.crew) for s in self.spaceships)} membres
+pilote : {pilote}
+technicien : {technicien}
+marchand : {marchand}
+entretien : {entretien}
+armurier : {armurier}
+commandant : {commandant}
+mentaliste : {counter}
+Expérience moyenne des opérateurs : {average_experience}
+Vaisseaux prêts : {nb_ready_ships} / {len(self.spaceships)}"""
 
     def to_dict(self):
         spaceships_data = []

@@ -15,7 +15,8 @@ class Spaceship:
     def add_member(self,member):
         if len(self.crew) >= self.MAX_CREW:
            raise ValueError(f"Le vaisseau est déjà plein")
-        elif self.name in self.crew:
+        elif any(existing.name.lower() == member.name.lower()
+                 for existing in self.crew):
             raise ValueError(f"Ce membre est déjà dans le vaisseau")
         else:
             self.crew.append(member)
@@ -55,6 +56,8 @@ class Spaceship:
         counter = 0
         for member in self.crew:
             counter += 1
+            if counter < 6:
+                self.condition = "endommagé"
         return (f"Fearless {self.ship_type} {self.condition} - {counter} membres")
 
     def to_dict(self):

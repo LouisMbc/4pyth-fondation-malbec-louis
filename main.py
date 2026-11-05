@@ -1,51 +1,109 @@
-from person import *
-from spaceship import *
-from fleet_data import FLEET_DATA
 from crew import build_fleet
+from fleet_data import FLEET_DATA
+from person import Mentalist, Operator, ROLES
+from spaceship import Spaceship
 
-# crew = [
-# {"first_name": "Bel", "last_name": "Riose", "gender": "M", "age": 48, "role": "commandant"},
-# {"first_name": "Gaal", "last_name": "Dornick", "gender": "F", "age": 34, "role": "technicien"},
-# {"first_name": "Hugo", "last_name": "Crast", "gender": "M", "age": 37, "role": "pilote"},
-# {"first_name": "Salvor", "last_name": "Hardin", "gender": "F", "age": 28, "role": "armurier"},
-# {"first_name": "Novi", "last_name": "Sura", "gender": "F", "age": 25, "role": "entretien"},
-# ]
 
-user = Person("Bel", "Riose", "M", 48)
-user1 = Person("Fallom", "", "M", 48)
-user2 = Operator("Hugo", "Crast", "M", 37, "pilote")
-user3 = Mentalist("Joie", "", "F", 25)
-user4 = Operator("Louis", "", "F", 25, "technicien")
-ship = Spaceship("bato", "baston", "operationnel")
-print(user.introduce_yourself())
-print(user.__str__())
-print(user1.introduce_yourself())
-print(user.__str__())
-print(user2.__str__())
+def ask_ship(fleet):
+    name = input("Nom du vaisseau : ").strip()
+    spaceship = fleet.find_spaceship(name)
+    if spaceship is None:
+        raise ValueError(f"Vaisseau inconnu : {name}")
+    return spaceship
 
-print(user3.act())
-print(user3.influence(user2))
-print(user3.__str__())
-# print(user.remove_member)
 
-print(ship.add_member(user))
-print(ship.add_member(user4))
-print(ship.add_member(user2))
-print(ship.find_member("Bel"))
-print(ship.find_member("Louis"))
-print(ship.find_member("Hugo"))
-print(ship.remove_member("Bel"))
-print(ship.find_member("Bel"))
-print(ship.find_member("Louis"))
-print(ship.find_member("Hugo"))
-print(ship.remove_member("Bel"))
-print(ship.check_preparation())
-print(ship.watch_round())
-print(ship.__str__())
+def ask_person_data():
+    first_name = input("Prénom : ").strip()
+    last_name = input("Nom : ").strip()
+    gender = input("Genre (M/F) : ").strip().upper()
+    age = int(input("Âge : "))
+    return first_name, last_name, gender, age
 
-fleet = build_fleet(FLEET_DATA)
-fleet.spaceships[0].crew[0].act()
-data = fleet.to_dict()
-again = build_fleet(data)
-print(again.to_dict() == data)
- 
+
+def add_member(fleet):
+    spaceship = ask_ship(fleet)
+    member_type = input("Type de membre (operateur/mentaliste) : ").strip().lower()
+    person_data = ask_person_data()
+    if member_type in ("operateur", "operator"):
+        role = input(f"Rôle ({', '.join(ROLES)}) : ").strip().lower()
+        member = Operator(*person_data, role)
+    elif member_type == "mentaliste":
+        member = Mentalist(*person_data)
+    else:
+        raise ValueError(f"Type de membre inconnu : {member_type}")
+    spaceship.add_member(member)
+    print("Membre ajouté.")
+
+
+def remove_member(fleet):
+    spaceship = ask_ship(fleet)
+    name = input("Prénom du membre à retirer : ").strip()
+    if spaceship.find_member(name) is None:
+        raise ValueError(f"Membre inconnu : {name}")
+    spaceship.remove_member(name)
+    print("Membre supprimé.")
+
+
+def display_fleet(fleet):
+    for spaceship in fleet.spaceships:
+        print(f"{spaceship.name} ({spaceship.ship_type}, {spaceship.condition})")
+        if spaceship.crew:
+            for member in spaceship.crew:
+                print(f"  - {member}")
+        else:
+            print("  - Aucun membre")
+
+
+def check_spaceship(fleet):
+    spaceship = ask_ship(fleet)
+    if spaceship.check_preparation():
+        print(f"{spaceship.name} est prêt.")
+    else:
+        print(f"{spaceship.name} n'est pas prêt.")
+
+
+def add_spaceship(fleet):
+    name = input("Nom du vaisseau : ").strip()
+    ship_type = input("Type du vaisseau : ").strip()
+    condition = input("État (opérationnel/endommagé) : ").strip()
+    fleet.add_spaceship(Spaceship(name, ship_type, condition))
+    print("Vaisseau ajouté.")
+
+
+def main():
+    fleet = build_fleet(FLEET_DATA)
+    while True:
+        print(
+            "\n===== Flotte marchande – Poste de commandement =====\n"
+            "[1] Ajouter un membre\n"
+            "[2] Retirer un membre\n"
+            "[3] Afficher la flotte\n"
+            "[4] Vérifier un vaisseau\n"
+            "[5] Ajouter un vaisseau\n"
+            "[6] Statistiques de la flotte\n"
+            "[0] Quitter"
+        )
+        try:
+            choice = int(input("Votre choix : "))
+            if choice == 1:
+                add_member(fleet)
+            elif choice == 2:
+                remove_member(fleet)
+            elif choice == 3:
+                display_fleet(fleet)
+            elif choice == 4:
+                check_spaceship(fleet)
+            elif choice == 5:
+                add_spaceship(fleet)
+            elif choice == 6:
+                print(fleet.statistics())
+            elif choice == 0:
+                break
+            else:
+                print("Commande inconnue.")
+        except ValueError as error:
+            print(f"Erreur : {error}")
+
+
+if __name__ == "__main__":
+    main()
